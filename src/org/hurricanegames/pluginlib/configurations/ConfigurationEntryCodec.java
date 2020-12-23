@@ -21,6 +21,10 @@ public class ConfigurationEntryCodec<T> {
 	}
 
 	public T read(ConfigurationSection section) {
+		return readOrDefault(section, defaultValue);
+	}
+
+	public T readOrDefault(ConfigurationSection section, T defaultValue) {
 		T value = serializer.deserialize(section.get(path));
 		return value != null ? value : defaultValue;
 	}
