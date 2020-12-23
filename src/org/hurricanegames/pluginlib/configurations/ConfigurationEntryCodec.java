@@ -8,17 +8,29 @@ public class ConfigurationEntryCodec<T> {
 	protected final String path;
 	protected final TypeSerializer<T> serializer;
 
-	public ConfigurationEntryCodec(String path, TypeSerializer<T> codec) {
+	protected final T defaultValue;
+
+	public ConfigurationEntryCodec(String path, TypeSerializer<T> serializer) {
+		this(path, serializer, null);
+	}
+
+	public ConfigurationEntryCodec(String path, TypeSerializer<T> serializer, T defaultValue) {
 		this.path = path;
-		this.serializer = codec;
+		this.serializer = serializer;
+		this.defaultValue = defaultValue;
 	}
 
 	public T read(ConfigurationSection section) {
-		return serializer.deserialize(section.get(path));
+		T value = serializer.deserialize(section.get(path));
+		return value != null ? value : defaultValue;
 	}
 
 	public void write(ConfigurationSection section, T value) {
-		section.set(path, serializer.serialize(value));
+		if (value != null) {
+			section.set(path, serializer.serialize(value));
+		} else {
+			section.set(path, null);
+		}
 	}
 
 }

@@ -206,10 +206,7 @@ public class AnnotatedConfiguration implements IConfiguration {
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void save(ConfigurationSection section) {
-			Object object = ReflectionUtils.getField(configurationField, configuration);
-			if (object != null) {
-				entryCodec.write(section, (T) object);
-			}
+			entryCodec.write(section, (T) ReflectionUtils.getField(configurationField, configuration));
 		}
 
 	}
