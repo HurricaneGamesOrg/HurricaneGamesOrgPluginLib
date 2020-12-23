@@ -30,6 +30,7 @@ import org.hurricanegames.pluginlib.configurations.IConfiguration;
 import org.hurricanegames.pluginlib.configurations.annotated.AnnotatedConfiguration.ConfigurationFieldDefinition.DefaultConfigurationField;
 import org.hurricanegames.pluginlib.configurations.typeserializers.CollectionTypeSerializer;
 import org.hurricanegames.pluginlib.configurations.typeserializers.ColorizedStringTypeSerializer;
+import org.hurricanegames.pluginlib.configurations.typeserializers.DoubleTypeSerializer;
 import org.hurricanegames.pluginlib.configurations.typeserializers.IConfigurationTypeSerializer;
 import org.hurricanegames.pluginlib.configurations.typeserializers.IdentityTypeSerializer;
 import org.hurricanegames.pluginlib.configurations.typeserializers.IntegerTypeSerializer;
@@ -223,6 +224,14 @@ public class AnnotatedConfiguration implements IConfiguration {
 
 		public LongConfigurationField(O configuration, Field field, String path) {
 			super(configuration, field, path, LongTypeSerializer.INSTANCE);
+		}
+
+	}
+
+	public static class DoubleConfigurationField<O> extends SimpleConfigurationField<O, Double> {
+
+		public DoubleConfigurationField(O configuration, Field field, String path) {
+			super(configuration, field, path, DoubleTypeSerializer.INSTANCE);
 		}
 
 	}
