@@ -6,14 +6,13 @@ import org.hurricanegames.pluginlib.commands.CommandBasic;
 import org.hurricanegames.pluginlib.commands.CommandHelper;
 import org.hurricanegames.pluginlib.commands.CommandResponseException;
 import org.hurricanegames.pluginlib.configurations.IRootConfiguration;
-import org.hurricanegames.pluginlib.configurations.annotated.AnnotatedRootConfiguration;
 
 public class RootConfigurationReloadCommand<H extends CommandHelper<?,?,?>> extends CommandBasic<H> {
 
 	protected final IRootConfiguration configuration;
 	protected final Supplier<String> configurationName;
 
-	public RootConfigurationReloadCommand(H helper, AnnotatedRootConfiguration configuration, Supplier<String> configurationName) {
+	public RootConfigurationReloadCommand(H helper, IRootConfiguration configuration, Supplier<String> configurationName) {
 		super(helper);
 		this.configuration = configuration;
 		this.configurationName = configurationName;
