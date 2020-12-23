@@ -11,32 +11,26 @@ import org.bukkit.command.TabCompleter;
 
 public class BukkitCommandExecutor implements CommandExecutor, TabCompleter {
 
-	protected final String permission;
 	protected final Command<? extends CommandHelper<?, ?, ?>> command;
 
 	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?>> command) {
-		this(command, null);
-	}
-
-	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?>> command, String permission) {
 		this.command = command;
-		this.permission = permission;
-	}
-
-	public String getPermission() {
-		return permission;
 	}
 
 	public Command<? extends CommandHelper<?, ?, ?>> getCommand() {
 		return command;
 	}
 
+	protected void checkPermission(CommandSender sender, org.bukkit.command.Command cmd) {
+		if (cmd.getPermission() != null) {
+			command.getHelper().validateHasPermission(sender, cmd.getPermission());
+		}
+	}
+
 	@Override
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
 		try {
-			if (permission != null) {
-				command.getHelper().validateHasPermission(sender, permission);
-			}
+			checkPermission(sender, cmd);
 			command.handleCommand(new CommandContext(command.getHelper().getMessages(), sender, label, splitEscaped(args)));
 		} catch (CommandResponseException e) {
 			sender.sendMessage(e.getMessage().split("\n"));
@@ -47,9 +41,7 @@ public class BukkitCommandExecutor implements CommandExecutor, TabCompleter {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
 		try {
-			if (permission != null) {
-				command.getHelper().validateHasPermission(sender, permission);
-			}
+			checkPermission(sender, cmd);
 			return
 				command.getAutoComplete(new CommandContext(command.getHelper().getMessages(), sender, label, args)).stream()
 				.map(BukkitCommandExecutor::escape)
