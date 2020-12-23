@@ -9,16 +9,13 @@ import java.util.Set;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
-import org.hurricanegames.commandlib.configurations.BaseConfiguration;
-import org.hurricanegames.commandlib.configurations.ConfigurationUtils.SimpleListConfigurationField;
-import org.hurricanegames.commandlib.configurations.ConfigurationUtils.SimpleMapConfigurationField;
-import org.hurricanegames.commandlib.configurations.ConfigurationUtils.SimpleSetConfigurationField;
+import org.hurricanegames.pluginlib.configurations.annotated.AnnotatedConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ConfigurationTest {
 
-	protected static class TestConfiguration extends BaseConfiguration {
+	protected static class TestConfiguration extends AnnotatedConfiguration {
 
 		@ConfigurationFieldDefinition
 		public String string = "test_string";
