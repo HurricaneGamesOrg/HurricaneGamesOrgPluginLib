@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.plugin.Plugin;
@@ -26,15 +25,16 @@ public class PaperCommandMapHelper {
 	}
 
 	public static void registerCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
-		Bukkit.getCommandMap().register(executor.getCommand().getHelper().getPlugin().getName().toLowerCase(Locale.ENGLISH), new BukkitPluginCommand(name, permission, description, aliases, executor));
+		Plugin plugin = executor.getCommand().getHelper().getPlugin();
+		plugin.getServer().getCommandMap().register(plugin.getName().toLowerCase(Locale.ENGLISH), new PaperPluginCommand(name, permission, description, aliases, executor));
 	}
 
-	protected static class BukkitPluginCommand extends org.bukkit.command.Command implements PluginIdentifiableCommand {
+	protected static class PaperPluginCommand extends org.bukkit.command.Command implements PluginIdentifiableCommand {
 
 		protected final Plugin owner;
 		protected final BukkitCommandExecutor executor;
 
-		public BukkitPluginCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
+		public PaperPluginCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
 			super(name, description, "/" + name, new ArrayList<>(aliases));
 			this.setPermission(permission);
 			this.executor = executor;

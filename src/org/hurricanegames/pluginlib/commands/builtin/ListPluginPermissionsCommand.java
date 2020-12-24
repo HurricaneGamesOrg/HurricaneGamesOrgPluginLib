@@ -3,8 +3,6 @@ package org.hurricanegames.pluginlib.commands.builtin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.hurricanegames.pluginlib.commands.CommandBasic;
@@ -33,27 +31,6 @@ public class ListPluginPermissionsCommand<H extends CommandHelper<?, ?, ?, ?>> e
 					permission.getChildren().keySet()
 				}
 			));
-		}
-		try {
-			Bukkit.getCommandMap().getKnownCommands().values().stream()
-			.filter(command -> {
-				if (command instanceof PluginIdentifiableCommand) {
-					return plugin.equals(((PluginIdentifiableCommand) command).getPlugin());
-				}
-				return false;
-			})
-			.filter(command -> command.getPermission() != null)
-			.distinct()
-			.forEach(command -> messages.add(new Tuple<>(
-				"{0} - Access to command {1} (Description - {2}, aliases - {3})",
-				new Object[] {
-					command.getPermission(),
-					command.getName(),
-					command.getDescription(),
-					command.getAliases()
-				}
-			)));
-		} catch (Throwable t) {
 		}
 		throw CommandResponseException.ofFormattedList(messages);
 	}
