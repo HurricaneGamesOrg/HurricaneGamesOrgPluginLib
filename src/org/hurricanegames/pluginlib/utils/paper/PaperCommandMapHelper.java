@@ -13,20 +13,12 @@ import org.hurricanegames.pluginlib.commands.BukkitCommandExecutor;
 public class PaperCommandMapHelper {
 
 	public static void registerCommand(String name, BukkitCommandExecutor executor) {
-		registerCommand(name, null, executor);
-	}
-
-	public static void registerCommand(String name, String permission, BukkitCommandExecutor executor) {
-		registerCommand(name, permission, executor.getCommand().getHelper().getPlugin().getName() + " command", Collections.emptyList(), executor);
+		registerCommand(name, "Description N/A", Collections.emptyList(), executor);
 	}
 
 	public static void registerCommand(String name, String description, List<String> aliases, BukkitCommandExecutor executor) {
-		registerCommand(name, null, description, aliases, executor);
-	}
-
-	public static void registerCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
 		Plugin plugin = executor.getCommand().getHelper().getPlugin();
-		plugin.getServer().getCommandMap().register(plugin.getName().toLowerCase(Locale.ENGLISH), new PaperPluginCommand(name, permission, description, aliases, executor));
+		plugin.getServer().getCommandMap().register(plugin.getName().toLowerCase(Locale.ENGLISH), new PaperPluginCommand(name, description, aliases, executor));
 	}
 
 	protected static class PaperPluginCommand extends org.bukkit.command.Command implements PluginIdentifiableCommand {
@@ -34,9 +26,8 @@ public class PaperCommandMapHelper {
 		protected final Plugin owner;
 		protected final BukkitCommandExecutor executor;
 
-		public PaperPluginCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
+		public PaperPluginCommand(String name, String description, List<String> aliases, BukkitCommandExecutor executor) {
 			super(name, description, "/" + name, new ArrayList<>(aliases));
-			this.setPermission(permission);
 			this.executor = executor;
 			this.owner = executor.getCommand().getHelper().getPlugin();
 		}

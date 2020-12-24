@@ -12,18 +12,28 @@ import org.bukkit.command.TabCompleter;
 public class BukkitCommandExecutor implements CommandExecutor, TabCompleter {
 
 	protected final Command<? extends CommandHelper<?, ?, ?, ?>> command;
+	protected final String permission;
 
 	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?, ?>> command) {
+		this(command, null);
+	}
+
+	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?, ?>> command, String permission) {
 		this.command = command;
+		this.permission = permission;
 	}
 
 	public Command<? extends CommandHelper<?, ?, ?, ?>> getCommand() {
 		return command;
 	}
 
+	public String getPermission() {
+		return permission;
+	}
+
 	protected void checkPermission(CommandSender sender, org.bukkit.command.Command cmd) {
-		if (cmd.getPermission() != null) {
-			command.getHelper().validateHasPermission(sender, cmd.getPermission());
+		if (permission != null) {
+			command.getHelper().validateHasPermission(sender, permission);
 		}
 	}
 
