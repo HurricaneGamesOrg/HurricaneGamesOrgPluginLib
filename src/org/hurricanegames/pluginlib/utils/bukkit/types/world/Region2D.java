@@ -55,8 +55,8 @@ public class Region2D implements Iterable<Coord2D> {
 		protected Region2DSerializer() {
 		}
 
-		protected static final ConfigurationEntryCodec<Coord2D> codec_min = new ConfigurationEntryCodec<>("x", Coord2D.Coord2DSerializer.INSTANCE);
-		protected static final ConfigurationEntryCodec<Coord2D> codec_max = new ConfigurationEntryCodec<>("z", Coord2D.Coord2DSerializer.INSTANCE);
+		protected static final ConfigurationEntryCodec<Coord2D> codec_min = new ConfigurationEntryCodec<>("min", Coord2D.Coord2DSerializer.INSTANCE);
+		protected static final ConfigurationEntryCodec<Coord2D> codec_max = new ConfigurationEntryCodec<>("max", Coord2D.Coord2DSerializer.INSTANCE);
 
 		@Override
 		public Region2D deserialize(Object object) {
