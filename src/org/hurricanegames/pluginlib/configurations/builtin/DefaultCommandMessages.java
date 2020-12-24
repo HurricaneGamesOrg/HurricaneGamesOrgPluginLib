@@ -67,7 +67,7 @@ public abstract class DefaultCommandMessages extends AnnotatedRootConfiguration 
 	protected String COMMAND_ARGS_BOOLEAN_ERROR = ChatColor.RED + "String {0} is not a boolean";
 
 	@ConfigurationFieldDefinition(fieldType = SimpleColorizedStringConfigurationField.class)
-	protected String COMMAND_CONFIGURATION_RELOAD_HELP = ChatColor.GREEN + "reloads configratuion {0}";
+	protected String COMMAND_CONFIGURATION_RELOAD_HELP = "reloads configuration {0}";
 	@ConfigurationFieldDefinition(fieldType = SimpleColorizedStringConfigurationField.class)
 	protected String COMMAND_CONFIGURATION_RELOAD_SUCCESS = ChatColor.GREEN + "Configuration {0} successfully reloaded";
 	@ConfigurationFieldDefinition(fieldType = SimpleColorizedStringConfigurationField.class)
