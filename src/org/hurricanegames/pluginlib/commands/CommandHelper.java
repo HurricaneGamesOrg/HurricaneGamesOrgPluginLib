@@ -5,28 +5,40 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
+import org.bukkit.plugin.Plugin;
 import org.hurricanegames.pluginlib.playerinfo.PlayerInfo;
 import org.hurricanegames.pluginlib.playerinfo.PlayerInfoProvider;
 
-public class CommandHelper<M extends CommandMessages, P extends PlayerInfo, PP extends PlayerInfoProvider<P>> {
+public class CommandHelper<P extends Plugin, M extends CommandMessages, PI extends PlayerInfo, PIP extends PlayerInfoProvider<PI>> {
 
-	private final M messagesProvider;
-	private final PP playerInfoProvider;
-	public CommandHelper(M messages, PP playerInfoProvider) {
+	protected final P plugin;
+	protected final M messagesProvider;
+	protected final PIP playerInfoProvider;
+
+	public CommandHelper(P plugin, M messages, PIP playerInfoProvider) {
+		this.plugin = plugin;
 		this.messagesProvider = messages;
 		this.playerInfoProvider = playerInfoProvider;
+	}
+
+	public P getPlugin() {
+		return plugin;
 	}
 
 	public M getMessages() {
 		return messagesProvider;
 	}
 
-	public PP getPlayersInfoProvider() {
+	public PIP getPlayersInfoProvider() {
 		return playerInfoProvider;
+	}
+
+	public Server getServer() {
+		return plugin.getServer();
 	}
 
 	public Player getSenderAsPlayer(CommandSender sender, String notAPlayerMessage) {
@@ -39,17 +51,17 @@ public class CommandHelper<M extends CommandMessages, P extends PlayerInfo, PP e
 	public Player parseOnlinePlayer(String value) {
 		Player player = null;
 		try {
-			player = Bukkit.getPlayer(UUID.fromString(value));
+			player = getServer().getPlayer(UUID.fromString(value));
 		} catch (Exception e) {
-			player = Bukkit.getPlayerExact(value);
+			player = getServer().getPlayerExact(value);
 		}
 		return validateNotNull(player, getMessages().getArgOnlinePlayerErrorNotOnlineMessage(value));
 	}
 
-	public P parseOfflinePlayer(String value) {
+	public PI parseOfflinePlayer(String value) {
 		try {
 			UUID uuid = UUID.fromString(value);
-			P player = getPlayersInfoProvider().getByUUID(UUID.fromString(value));
+			PI player = getPlayersInfoProvider().getByUUID(UUID.fromString(value));
 			return player != null ? player : getPlayersInfoProvider().createUnknown(uuid);
 		} catch (IllegalArgumentException e) {
 			return validateNotNull(getPlayersInfoProvider().getByName(value), getMessages().getArgOfflinePlayerErrorNeverPlayedMessage(value));

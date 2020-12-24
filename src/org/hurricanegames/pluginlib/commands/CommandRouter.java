@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandRouter<H extends CommandHelper<?, ?, ?>> implements Command<H> {
+public class CommandRouter<H extends CommandHelper<?, ?, ?, ?>> implements Command<H> {
 
 	protected final H helper;
 	public CommandRouter(H helper) {

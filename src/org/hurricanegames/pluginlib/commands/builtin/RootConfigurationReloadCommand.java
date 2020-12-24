@@ -7,7 +7,7 @@ import org.hurricanegames.pluginlib.commands.CommandHelper;
 import org.hurricanegames.pluginlib.commands.CommandResponseException;
 import org.hurricanegames.pluginlib.configurations.IRootConfiguration;
 
-public class RootConfigurationReloadCommand<H extends CommandHelper<?,?,?>> extends CommandBasic<H> {
+public class RootConfigurationReloadCommand<H extends CommandHelper<?, ?, ?, ?>> extends CommandBasic<H> {
 
 	protected final IRootConfiguration configuration;
 	protected final Supplier<String> configurationName;

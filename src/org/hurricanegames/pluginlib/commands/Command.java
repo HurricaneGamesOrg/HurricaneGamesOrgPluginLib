@@ -2,7 +2,7 @@ package org.hurricanegames.pluginlib.commands;
 
 import java.util.List;
 
-public interface Command<H extends CommandHelper<?, ?, ?>> {
+public interface Command<H extends CommandHelper<?, ?, ?, ?>> {
 
 	public H getHelper();
 

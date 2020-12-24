@@ -11,13 +11,13 @@ import org.bukkit.command.TabCompleter;
 
 public class BukkitCommandExecutor implements CommandExecutor, TabCompleter {
 
-	protected final Command<? extends CommandHelper<?, ?, ?>> command;
+	protected final Command<? extends CommandHelper<?, ?, ?, ?>> command;
 
-	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?>> command) {
+	public BukkitCommandExecutor(Command<? extends CommandHelper<?, ?, ?, ?>> command) {
 		this.command = command;
 	}
 
-	public Command<? extends CommandHelper<?, ?, ?>> getCommand() {
+	public Command<? extends CommandHelper<?, ?, ?, ?>> getCommand() {
 		return command;
 	}
 

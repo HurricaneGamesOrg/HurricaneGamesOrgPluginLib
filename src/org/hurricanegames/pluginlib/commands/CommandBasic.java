@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.hurricanegames.pluginlib.playerinfo.PlayerInfo;
@@ -29,7 +28,7 @@ import org.hurricanegames.pluginlib.utils.ReflectionUtils;
 import org.hurricanegames.pluginlib.utils.bukkit.MiscBukkitUtils;
 import org.hurricanegames.pluginlib.utils.types.Tuple;
 
-public abstract class CommandBasic<H extends CommandHelper<?, ?, ?>> implements Command<H> {
+public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implements Command<H> {
 
 	protected final H helper;
 
@@ -509,7 +508,7 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?>> implements 
 		@Override
 		public List<String> complete(String arg) {
 			return
-				Bukkit.getOnlinePlayers().stream()
+				helper.getServer().getOnlinePlayers().stream()
 				.filter(player -> player.getName().startsWith(arg))
 				.filter(helper.createPredicate(this::validate))
 				.map(Player::getName)
@@ -544,7 +543,7 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?>> implements 
 		@Override
 		public List<String> complete(String arg) {
 			return
-				Bukkit.getOnlinePlayers().stream()
+				helper.getServer().getOnlinePlayers().stream()
 				.filter(player -> player.getName().startsWith(arg))
 				.filter(helper.createPredicate(player -> validate((V) helper.getPlayersInfoProvider().createFromPlayer(player))))
 				.map(Player::getName)
