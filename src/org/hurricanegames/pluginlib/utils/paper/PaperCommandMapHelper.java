@@ -13,26 +13,20 @@ import org.hurricanegames.pluginlib.commands.BukkitCommandExecutor;
 
 public class PaperCommandMapHelper {
 
-	protected final Plugin owner;
-
-	public PaperCommandMapHelper(Plugin owner) {
-		this.owner = owner;
-	}
-
-	public void registerCommand(String name, BukkitCommandExecutor executor) {
+	public static void registerCommand(String name, BukkitCommandExecutor executor) {
 		registerCommand(name, null, executor);
 	}
 
-	public void registerCommand(String name, String permission, BukkitCommandExecutor executor) {
-		registerCommand(name, permission, owner.getDescription().getName() + " command", Collections.emptyList(), executor);
+	public static void registerCommand(String name, String permission, BukkitCommandExecutor executor) {
+		registerCommand(name, permission, executor.getCommand().getHelper().getPlugin().getName() + " command", Collections.emptyList(), executor);
 	}
 
-	public void registerCommand(String name, String description, List<String> aliases, BukkitCommandExecutor executor) {
+	public static void registerCommand(String name, String description, List<String> aliases, BukkitCommandExecutor executor) {
 		registerCommand(name, null, description, aliases, executor);
 	}
 
-	public void registerCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
-		Bukkit.getCommandMap().register(owner.getName().toLowerCase(Locale.ENGLISH), new BukkitPluginCommand(owner, name, permission, description, aliases, executor));
+	public static void registerCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
+		Bukkit.getCommandMap().register(executor.getCommand().getHelper().getPlugin().getName().toLowerCase(Locale.ENGLISH), new BukkitPluginCommand(name, permission, description, aliases, executor));
 	}
 
 	protected static class BukkitPluginCommand extends org.bukkit.command.Command implements PluginIdentifiableCommand {
@@ -40,11 +34,11 @@ public class PaperCommandMapHelper {
 		protected final Plugin owner;
 		protected final BukkitCommandExecutor executor;
 
-		public BukkitPluginCommand(Plugin owner, String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
+		public BukkitPluginCommand(String name, String permission, String description, List<String> aliases, BukkitCommandExecutor executor) {
 			super(name, description, "/" + name, new ArrayList<>(aliases));
 			this.setPermission(permission);
 			this.executor = executor;
-			this.owner = owner;
+			this.owner = executor.getCommand().getHelper().getPlugin();
 		}
 
 		@Override
