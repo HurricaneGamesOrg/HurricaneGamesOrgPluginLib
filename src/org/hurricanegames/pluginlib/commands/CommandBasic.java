@@ -32,6 +32,7 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implemen
 
 	protected final H helper;
 
+	private final String permission;
 	private final Map<String, Object> parsedValuesStorage = new HashMap<>();
 	private final Method handleMethod;
 	private final Tuple<String, CommandArgument<Object>>[] handleMethodArguments;
@@ -127,9 +128,14 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implemen
 		throw exception;
 	}
 
-	@SuppressWarnings("unchecked")
 	public CommandBasic(H helper) {
+		this(helper, null);
+	}
+
+	@SuppressWarnings("unchecked")
+	public CommandBasic(H helper, String permissions) {
 		this.helper = helper;
+		this.permission = permissions;
 
 		this.handleMethod =
 			ReflectionUtils.setAccessible(
@@ -175,6 +181,11 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implemen
 	}
 
 	@Override
+	public String getPermission() {
+		return permission;
+	}
+
+	@Override
 	public void handleCommand(CommandContext context) {
 		try {
 			int argIndex = 0;
@@ -217,7 +228,7 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implemen
 	}
 
 	@Override
-	public List<String> getHelpMessages(String commandLabel) {
+	public List<String> getHelpMessages(CommandSender sender, String commandLabel) {
 		StringBuilder help = new StringBuilder(100);
 		help.append(commandLabel);
 		help.append(helper.getMessages().getHelpArgsColor());

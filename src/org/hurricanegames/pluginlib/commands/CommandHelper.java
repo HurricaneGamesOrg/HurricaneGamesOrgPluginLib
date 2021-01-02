@@ -165,10 +165,27 @@ public class CommandHelper<P extends Plugin, M extends CommandMessages, PI exten
 	 * @return permissible
 	 */
 	public Permissible validateHasPermission(Permissible permissible, String permission, String missingPermissionMessage, Object... missingPermissionMessageArguments) {
+		if (permission == null) {
+			return permissible;
+		}
 		if (!permissible.hasPermission(permission)) {
 			throw new CommandResponseException(missingPermissionMessage, missingPermissionMessageArguments);
 		}
 		return permissible;
+	}
+
+	/**
+	 * Checks if permissible has provided permission<br>
+	 * If permission is null returns true
+	 * @param permissible permissible
+	 * @param permission permission
+	 * @return permissions status
+	 */
+	public boolean hasPermission(Permissible permissible, String permission) {
+		if (permission == null) {
+			return true;
+		}
+		return permissible.hasPermission(permission);
 	}
 
 	/**
