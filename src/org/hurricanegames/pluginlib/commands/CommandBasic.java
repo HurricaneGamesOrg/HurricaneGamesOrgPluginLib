@@ -563,7 +563,7 @@ public abstract class CommandBasic<H extends CommandHelper<?, ?, ?, ?>> implemen
 
 		@Override
 		public String getHelpMessage() {
-			return helper.getMessages().getArgOnlinePlayerHelp();
+			return helper.getMessages().getArgOfflinePlayerHelp();
 		}
 
 		/**
