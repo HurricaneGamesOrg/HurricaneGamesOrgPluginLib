@@ -18,6 +18,12 @@ public class RootConfigurationReloadCommand<H extends CommandHelper<?, ?, ?, ?>>
 		this.configurationName = configurationName;
 	}
 
+	public RootConfigurationReloadCommand(H helper, String permission, IRootConfiguration configuration, Supplier<String> configurationName) {
+		super(helper, permission);
+		this.configuration = configuration;
+		this.configurationName = configurationName;
+	}
+
 	@CommandHandler
 	private void handleCommand() {
 		try {

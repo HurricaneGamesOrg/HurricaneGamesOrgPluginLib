@@ -17,6 +17,10 @@ public class ListPluginPermissionsCommand<H extends CommandHelper<?, ?, ?, ?>> e
 		super(helper);
 	}
 
+	public ListPluginPermissionsCommand(H helper, String permission) {
+		super(helper, permission);
+	}
+
 	@CommandHandler
 	protected void handleCommand() {
 		Plugin plugin = helper.getPlugin();
