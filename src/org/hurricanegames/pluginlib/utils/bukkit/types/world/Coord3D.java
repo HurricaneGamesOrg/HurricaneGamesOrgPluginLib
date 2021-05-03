@@ -74,7 +74,7 @@ public class Coord3D {
 	}
 
 	@Override
-	protected Coord3D clone() {
+	public Coord3D clone() {
 		return new Coord3D(x, y, z);
 	}
 
