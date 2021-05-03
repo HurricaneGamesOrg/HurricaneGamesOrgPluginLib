@@ -19,9 +19,15 @@ public class MiscBukkitUtils {
 		return list.stream().map(MiscBukkitUtils::colorize).collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	public static ConfigurationSection createSection(Map<?, ?> map) {
+	public static ConfigurationSection createConfigurationSection(Map<?, ?> map) {
 		MemoryConfiguration configuration = new MemoryConfiguration();
 		return configuration.createSection("root", map);
+	}
+
+	public static void mergeConfigurationSection(ConfigurationSection root, ConfigurationSection merge) {
+		for (String key : merge.getKeys(false)) {
+			root.set(key, merge.get(key));
+		}
 	}
 
 }

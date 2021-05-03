@@ -24,7 +24,7 @@ public class CollectionTypeSerializer<C extends Collection<T>, T> implements Typ
 			C collection = collectionSupplier.get();
 			for (Object element : (Collection<?>) object) {
 				if (element instanceof Map) {
-					element = MiscBukkitUtils.createSection((Map<?, ?>) element);
+					element = MiscBukkitUtils.createConfigurationSection((Map<?, ?>) element);
 				}
 				T t = elementSerializer.deserialize(element);
 				if (t != null) {
