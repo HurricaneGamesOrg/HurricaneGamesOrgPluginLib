@@ -6,13 +6,13 @@ import org.bukkit.command.CommandSender;
 
 public class CommandContext {
 
-	protected final CommandMessages messagesprovider;
+	protected final CommandsLocalization messagesprovider;
 
 	protected final CommandSender sender;
 	protected final String command;
 	protected final String[] args;
 
-	public CommandContext(CommandMessages messagesprovider, CommandSender sender, String command, String[] args) {
+	public CommandContext(CommandsLocalization messagesprovider, CommandSender sender, String command, String[] args) {
 		this.messagesprovider = messagesprovider;
 		this.sender = sender;
 		this.command = command;

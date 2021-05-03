@@ -3,15 +3,15 @@ package org.hurricanegames.pluginlib.configurations.builtin;
 import java.text.MessageFormat;
 
 import org.bukkit.ChatColor;
-import org.hurricanegames.pluginlib.commands.CommandMessages;
+import org.hurricanegames.pluginlib.commands.CommandsLocalization;
 import org.hurricanegames.pluginlib.configurations.annotated.AnnotatedRootConfiguration;
 
 /**
- * Implements a {@link AnnotatedRootConfiguration} that stores all needed messages for {@link CommandMessages}
+ * Implements a {@link AnnotatedRootConfiguration} that stores all needed messages for {@link CommandsLocalization}
  */
-public abstract class DefaultCommandMessages extends AnnotatedRootConfiguration implements CommandMessages {
+public abstract class DefaultCommandsLocalization extends AnnotatedRootConfiguration implements CommandsLocalization {
 
-	public static final DefaultCommandMessages IMMUTABLE = new DefaultCommandMessages() {
+	public static final DefaultCommandsLocalization IMMUTABLE = new DefaultCommandsLocalization() {
 		@Override
 		public void load() {
 		}

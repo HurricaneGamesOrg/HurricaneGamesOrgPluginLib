@@ -13,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.hurricanegames.pluginlib.playerinfo.PlayerInfo;
 import org.hurricanegames.pluginlib.playerinfo.PlayerInfoProvider;
 
-public class CommandHelper<P extends Plugin, M extends CommandMessages, PI extends PlayerInfo, PIP extends PlayerInfoProvider<PI>> {
+public class CommandHelper<P extends Plugin, M extends CommandsLocalization, PI extends PlayerInfo, PIP extends PlayerInfoProvider<PI>> {
 
 	protected final P plugin;
 	protected final M messagesProvider;
@@ -70,7 +70,7 @@ public class CommandHelper<P extends Plugin, M extends CommandMessages, PI exten
 
 	/**
 	 * Parses string as integer (via {@link Integer#parseInt(String)})
-	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandMessages#getArgIntegerErrorNotIntegerMessage(String)}
+	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandsLocalization#getArgIntegerErrorNotIntegerMessage(String)}
 	 * @param value value
 	 * @return integer
 	 */
@@ -84,7 +84,7 @@ public class CommandHelper<P extends Plugin, M extends CommandMessages, PI exten
 
 	/**
 	 * Parses string as double (via {@link Double#parseDouble(String)})
-	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandMessages#getArgDoubleErrorNotDoubleMessage(String)}
+	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandsLocalization#getArgDoubleErrorNotDoubleMessage(String)}
 	 * @param value value
 	 * @return double
 	 */
@@ -98,9 +98,9 @@ public class CommandHelper<P extends Plugin, M extends CommandMessages, PI exten
 
 	/**
 	 * Parses string as boolean<br>
-	 * Returns {@link Boolean#TRUE} if string equals {@link CommandMessages#getArgBooleanValueTrue()}<br>
-	 * Returns {@link Boolean#FALSE} if string equals {@link CommandMessages#getArgBooleanValueFalse()}
-	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandMessages#getArgBooleanErrorNotBooleanMessage(String)}
+	 * Returns {@link Boolean#TRUE} if string equals {@link CommandsLocalization#getArgBooleanValueTrue()}<br>
+	 * Returns {@link Boolean#FALSE} if string equals {@link CommandsLocalization#getArgBooleanValueFalse()}
+	 * Throws {@link CommandResponseException} on parse fail with message from {@link CommandsLocalization#getArgBooleanErrorNotBooleanMessage(String)}
 	 * @param value value
 	 * @return boolean
 	 */
@@ -145,7 +145,7 @@ public class CommandHelper<P extends Plugin, M extends CommandMessages, PI exten
 
 	/**
 	 * Validates that permissible has provided permission<br>
-	 * Throws {@link CommandResponseException} on validation fail with message from {@link CommandMessages#getValidateHasPermissionErrorNoPermissionMessage(String)}
+	 * Throws {@link CommandResponseException} on validation fail with message from {@link CommandsLocalization#getValidateHasPermissionErrorNoPermissionMessage(String)}
 	 * @param permissible permissible
 	 * @param permission permission
 	 * @return permissible

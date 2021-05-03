@@ -3,7 +3,7 @@ package org.hurricanegames.pluginlib.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public interface CommandMessages {
+public interface CommandsLocalization {
 
 	public String getSubCommandLabelColor();
 

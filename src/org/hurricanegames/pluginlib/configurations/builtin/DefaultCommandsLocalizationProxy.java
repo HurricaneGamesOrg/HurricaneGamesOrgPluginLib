@@ -1,13 +1,13 @@
 package org.hurricanegames.pluginlib.configurations.builtin;
 
-import org.hurricanegames.pluginlib.commands.CommandMessages;
+import org.hurricanegames.pluginlib.commands.CommandsLocalization;
 import org.hurricanegames.pluginlib.configurations.annotated.AnnotatedRootConfiguration;
 
-public abstract class DefaultCommandMessagesProxy extends AnnotatedRootConfiguration implements CommandMessages {
+public abstract class DefaultCommandsLocalizationProxy extends AnnotatedRootConfiguration implements CommandsLocalization {
 
-	protected final CommandMessages parent;
+	protected final CommandsLocalization parent;
 
-	public DefaultCommandMessagesProxy(CommandMessages parent) {
+	public DefaultCommandsLocalizationProxy(CommandsLocalization parent) {
 		this.parent = parent;
 	}
 
