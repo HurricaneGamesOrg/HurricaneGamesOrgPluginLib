@@ -74,6 +74,11 @@ public class Coord3D {
 	}
 
 	@Override
+	protected Coord3D clone() {
+		return new Coord3D(x, y, z);
+	}
+
+	@Override
 	public String toString() {
 		return x + "," + y + "," + z;
 	}
