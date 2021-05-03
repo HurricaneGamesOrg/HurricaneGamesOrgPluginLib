@@ -1,12 +1,12 @@
 package org.hurricanegames.pluginlib.utils.bukkit.types.world;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
@@ -33,16 +33,48 @@ public class Coord2D {
 		return this.z;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (!obj.getClass().equals(getClass())) {
-			return false;
-		}
-		Coord2D other = (Coord2D) obj;
-		return (x == other.x) && (z == other.z);
+	public Coord2D add(int add) {
+		return new Coord2D(x + add, z + add);
+	}
+
+	public Coord2D add(int xAdd, int zAdd) {
+		return new Coord2D(x + xAdd, z + zAdd);
+	}
+
+	public Coord2D mul(int mul) {
+		return new Coord2D(x * mul, z * mul);
+	}
+
+	public Coord2D mul(int xMul, int zMul) {
+		return new Coord2D(x * xMul, z * zMul);
+	}
+
+	public Coord2D shl4() {
+		return shl(4);
+	}
+
+	public Coord2D shl(int sh) {
+		return new Coord2D(x << sh, z << sh);
+	}
+
+	public Coord2D shl(int xSh, int zSh) {
+		return new Coord2D(x << xSh, z << zSh);
+	}
+
+	public Coord2D shr4() {
+		return shr(4);
+	}
+
+	public Coord2D shr(int sh) {
+		return new Coord2D(x >> sh, z >> sh);
+	}
+
+	public Coord2D shr(int xSh, int zSh) {
+		return new Coord2D(x >> xSh, z >> zSh);
+	}
+
+	public Coord3D to3D(int y) {
+		return new Coord3D(x, y, z);
 	}
 
 	public List<Coord2D> getTo(Coord2D other) {
@@ -95,10 +127,6 @@ public class Coord2D {
 			(z >= otherMin.getZ()) && (z <= otherMax.getZ());
 	}
 
-	@Override
-	public Coord2D clone() {
-		return new Coord2D(getX(), getZ());
-	}
 
 	@Override
 	public int hashCode() {
@@ -106,12 +134,42 @@ public class Coord2D {
 	}
 
 	@Override
-	public String toString() {
-		return MessageFormat.format("{0}(x: {1}, z: {2})", getClass().getSimpleName(), getX(), getZ());
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!obj.getClass().equals(getClass())) {
+			return false;
+		}
+		Coord2D other = (Coord2D) obj;
+		return (x == other.x) && (z == other.z);
 	}
 
-	public static Coord2D ofChunk(Chunk chunk) {
+	@Override
+	public Coord2D clone() {
+		return new Coord2D(getX(), getZ());
+	}
+
+	@Override
+	public String toString() {
+		return x + "," + z;
+	}
+
+
+	public static Coord2D of(Chunk chunk) {
 		return new Coord2D(chunk.getX(), chunk.getZ());
+	}
+
+	public static Coord2D createWorldCoord(Block block) {
+		return new Coord2D(block.getX(), block.getZ());
+	}
+
+	public static Coord2D createWorldCoord(Vector worldLocation) {
+		return new Coord2D(worldLocation.getBlockX(), worldLocation.getBlockZ());
+	}
+
+	public static Coord2D createWorldCoord(Location location) {
+		return new Coord2D(location.getBlockX(), location.getBlockZ());
 	}
 
 	public static Coord2D createChunkCoord(Block block) {
@@ -121,6 +179,11 @@ public class Coord2D {
 	public static Coord2D createChunkCoord(Vector worldLocation) {
 		return new Coord2D(worldLocation.getBlockX() >> 4, worldLocation.getBlockZ() >> 4);
 	}
+
+	public static Coord2D createChunkCoord(Location location) {
+		return new Coord2D(location.getBlockX() >> 4, location.getBlockZ() >> 4);
+	}
+
 
 	public static class Coord2DSerializer implements TypeSerializer<Coord2D> {
 

@@ -1,10 +1,11 @@
 package org.hurricanegames.pluginlib.utils.bukkit.types.world;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
-import org.bukkit.util.Vector;
 import org.hurricanegames.pluginlib.configurations.ConfigurationEntryCodec;
 import org.hurricanegames.pluginlib.configurations.typeserializers.TypeSerializer;
 
@@ -14,6 +15,9 @@ public class Region2D implements Iterable<Coord2D> {
 	private final Coord2D max;
 
 	public Region2D(Coord2D min, Coord2D max) {
+		if ((min.getX() > max.getX()) || (min.getZ() > max.getZ())) {
+			throw new IllegalArgumentException("min must be less or equal max");
+		}
 		this.min = min;
 		this.max = max;
 	}
@@ -30,12 +34,24 @@ public class Region2D implements Iterable<Coord2D> {
 		return coord.isInAABB(min, max);
 	}
 
-	public Vector getCenterLocation() {
-		return new Vector(middleLocation(min.getX(), max.getX()), 0, middleLocation(min.getZ(), max.getZ()));
+	public boolean contains(Coord2D coordMin, Coord2D coordMax) {
+		return
+			(coordMin.getX() >= min.getX()) &&
+			(coordMin.getZ() >= min.getZ()) &&
+			(coordMax.getX() <= max.getX()) &&
+			(coordMax.getZ() <= max.getZ());
 	}
 
-	protected static int middleLocation(int cMin, int cMax) {
-		return (((cMax + cMin) >> 1) << 4) + 6;
+	public Coord2D getCenter() {
+		return new Coord2D(center(min.getX(), max.getX()), center(min.getZ(), max.getZ()));
+	}
+
+	protected static int center(int min, int max) {
+		return ((max + min) >> 1);
+	}
+
+	public List<Coord2D> getAll() {
+		return min.getTo(max);
 	}
 
 	@Override
@@ -43,10 +59,37 @@ public class Region2D implements Iterable<Coord2D> {
 		return min.iterateTo(max).iterator();
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(max, min);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Region2D other = (Region2D) obj;
+		return Objects.equals(max, other.max) && Objects.equals(min, other.min);
+	}
+
 	@Override
 	public Region2D clone() {
 		return new Region2D(getMin().clone(), getMax().clone());
 	}
+
+	@Override
+	public String toString() {
+		return min + "->" + max;
+	}
+
 
 	public static class Region2DSerializer implements TypeSerializer<Region2D> {
 
