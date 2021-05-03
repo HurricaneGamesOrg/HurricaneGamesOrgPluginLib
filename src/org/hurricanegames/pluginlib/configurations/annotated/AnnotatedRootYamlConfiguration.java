@@ -15,13 +15,21 @@ public abstract class AnnotatedRootYamlConfiguration extends AnnotatedRootConfig
 
 	@Override
 	public void load() {
-		load(YamlConfiguration.loadConfiguration(storageFile));
+		load(this, storageFile);
 	}
 
 	@Override
 	public void save() {
+		save(this, storageFile);
+	}
+
+	public static void load(AnnotatedRootConfiguration configuration, File storageFile) {
+		configuration.load(YamlConfiguration.loadConfiguration(storageFile));
+	}
+
+	public static void save(AnnotatedRootConfiguration configuration, File storageFile) {
 		YamlConfiguration config = new YamlConfiguration();
-		save(config);
+		configuration.save(config);
 		ConfigurationUtils.safeSave(config, storageFile);
 	}
 
