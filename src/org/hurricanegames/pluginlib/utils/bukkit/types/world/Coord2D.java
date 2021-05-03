@@ -184,6 +184,10 @@ public class Coord2D {
 		return new Coord2D(location.getBlockX() >> 4, location.getBlockZ() >> 4);
 	}
 
+	public static Coord2D createChunkCoord(Coord3D coord3d) {
+		return new Coord2D(coord3d.getX() >> 4, coord3d.getZ());
+	}
+
 
 	public static class Coord2DSerializer implements TypeSerializer<Coord2D> {
 
