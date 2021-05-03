@@ -1,7 +1,9 @@
 package org.hurricanegames.pluginlib.utils.bukkit.types.world;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.bukkit.Chunk;
@@ -41,6 +43,19 @@ public class Coord2D {
 		}
 		Coord2D other = (Coord2D) obj;
 		return (x == other.x) && (z == other.z);
+	}
+
+	public List<Coord2D> getTo(Coord2D other) {
+		if ((other.getX() < getX()) || (other.getZ() < getZ())) {
+			throw new IllegalArgumentException("Other coordinate should be bigger");
+		}
+		List<Coord2D> list = new ArrayList<>();
+		for (int lX = getX(); lX <= other.getX(); lX++) {
+			for (int lZ = getZ(); lZ <= other.getZ(); lZ++) {
+				list.add(new Coord2D(lX, lZ));
+			}
+		}
+		return list;
 	}
 
 	public Iterable<Coord2D> iterateTo(Coord2D other) {

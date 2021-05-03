@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-	compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.3-R0.1-SNAPSHOT'
+	compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.5-R0.1-SNAPSHOT'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
 	testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
@@ -76,8 +76,6 @@ compileTestJava {
 
 jar {
 	from sourceSets.main.java.srcDirs
-
-	archiveName = jar.archiveName
 }
 
 
