@@ -52,6 +52,13 @@ public class Coord3D {
 		return new Location(world, x, y, z, 0, 0);
 	}
 
+	public boolean isInAABB(Coord3D otherMin, Coord3D otherMax) {
+		return
+			(x >= otherMin.getX()) && (x <= otherMax.getX()) &&
+			(y >= otherMin.getY()) && (y <= otherMax.getY()) &&
+			(z >= otherMin.getZ()) && (z <= otherMax.getZ());
+	}
+
 
 	@Override
 	public int hashCode() {

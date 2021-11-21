@@ -92,7 +92,7 @@ public class Coord2D {
 
 	public Iterable<Coord2D> iterateTo(Coord2D other) {
 		if ((other.getX() < getX()) || (other.getZ() < getZ())) {
-			throw new IllegalArgumentException("Other coordinates should be bigger");
+			throw new IllegalArgumentException("Other coordinate should be bigger");
 		}
 		return () -> new Iterator<Coord2D>() {
 			protected Coord2D next = new Coord2D(getX(), getZ());

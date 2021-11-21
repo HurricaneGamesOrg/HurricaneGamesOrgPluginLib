@@ -21,7 +21,7 @@ public class ConfigurationUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T getValueOrThrow(ConfigurationSection config, String path) {
 		if (!config.isSet(path)) {
-			throw new IllegalStateException("Configuration is missing path " + path);
+			throw new IllegalStateException("Configuration section " + config.getCurrentPath() + " is missing path " + path);
 		}
 		return (T) config.get(path);
 	}

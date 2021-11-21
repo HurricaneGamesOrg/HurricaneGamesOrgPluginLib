@@ -8,10 +8,7 @@ public class ColorizedStringTypeSerializer implements TypeSerializer<String> {
 
 	@Override
 	public String deserialize(Object object) {
-		if (object instanceof String) {
-			return MiscBukkitUtils.colorize((String) object);
-		}
-		return null;
+		return object != null ? MiscBukkitUtils.colorize((String) object) : null;
 	}
 
 	@Override
