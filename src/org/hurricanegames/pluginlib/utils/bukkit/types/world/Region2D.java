@@ -50,6 +50,10 @@ public class Region2D implements Iterable<Coord2D> {
 		return ((max + min) >> 1);
 	}
 
+	public Region3D to3D(int minY, int maxY) {
+		return new Region3D(min.to3D(minY), max.to3D(maxY));
+	}
+
 	public List<Coord2D> getAll() {
 		return min.getTo(max);
 	}

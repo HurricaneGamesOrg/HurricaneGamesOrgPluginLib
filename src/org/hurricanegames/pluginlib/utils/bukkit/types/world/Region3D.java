@@ -32,20 +32,26 @@ public class Region3D {
 		return coord.isInAABB(min, max);
 	}
 
-	public boolean contains(Coord2D coordMin, Coord2D coordMax) {
+	public boolean contains(Coord3D coordMin, Coord3D coordMax) {
 		return
 			(coordMin.getX() >= min.getX()) &&
+			(coordMin.getY() >= min.getY()) &&
 			(coordMin.getZ() >= min.getZ()) &&
 			(coordMax.getX() <= max.getX()) &&
+			(coordMax.getY() <= max.getY()) &&
 			(coordMax.getZ() <= max.getZ());
 	}
 
-	public Coord2D getCenter() {
-		return new Coord2D(center(min.getX(), max.getX()), center(min.getZ(), max.getZ()));
+	public Coord3D getCenter() {
+		return new Coord3D(center(min.getX(), max.getX()), center(min.getY(), max.getY()), center(min.getZ(), max.getZ()));
 	}
 
 	protected static int center(int min, int max) {
 		return ((max + min) >> 1);
+	}
+
+	public Region2D to2D() {
+		return new Region2D(min.to2D(), max.to2D());
 	}
 
 
@@ -77,11 +83,11 @@ public class Region3D {
 	}
 
 
-	public static class Region2DSerializer implements TypeSerializer<Region3D> {
+	public static class Region3DSerializer implements TypeSerializer<Region3D> {
 
-		public static final Region2DSerializer INSTANCE = new Region2DSerializer();
+		public static final Region3DSerializer INSTANCE = new Region3DSerializer();
 
-		protected Region2DSerializer() {
+		protected Region3DSerializer() {
 		}
 
 		protected final ConfigurationEntryCodecDefaulting<Coord3D> codec_min = new ConfigurationEntryCodecDefaulting<>("min", Coord3D.Coord3DSerializer.INSTANCE);
